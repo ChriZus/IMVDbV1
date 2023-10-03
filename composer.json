@@ -1,5 +1,5 @@
 {
-    "name": "ChriZus/imvdbv1",
+    "name": "chrizus/imvdbv1",
     "type": "library",
     "description": "PHP wrapper for IMDBv API",
     "keywords": ["imvdb"],
