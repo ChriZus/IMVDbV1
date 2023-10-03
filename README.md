@@ -5,7 +5,7 @@
 ```json
 {
     "require": {
-        "chistaesse/imvdb": "dev-master"
+        "ChriZus/imvdbv1": "dev-master"
     }
 }
 ```
