@@ -7,13 +7,12 @@ namespace IMVDb;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 
-class API implements APIInterface
-{
-	protected $APIKey = '';
-	protected $APIUrl = 'https://imvdb.com/api/v1/';
+class API implements APIInterface {
+	
+	protected $APIKey = "";
+	protected $APIUrl = "https://imvdb.com/api/v1/";
 
-	public function __construct($APIKey='')
-	{
+	public function __construct ($APIKey = "") {
 		$this->APIKey = $APIKey;
 	}
 
@@ -26,16 +25,15 @@ class API implements APIInterface
 	 *
 	 * @return array
 	 */ 
-	public function searchVideos($query='', $start=1, $limit=10)
-	{
+	public function searchVideos ($query = "", $start = 1, $limit = 10) {
 		// Verify input
-		if($query == '') return false;
+		if ($query == "") return false;
 		// Query
-		$searchResult = $this->request('search/videos', 
+		$searchResult = $this->request ("search/videos", 
 			array(
-				'q'=>$query,
-				'per_page'=>$limit,
-				'page'=>$start,
+				"q" => $query,
+				"per_page" => $limit,
+				"page" => $start,
 			)
 		);
 		return $searchResult;
@@ -50,16 +48,15 @@ class API implements APIInterface
 	 *
 	 * @return array
 	 */ 
-	public function searchEntities($query='', $start=1, $limit=10)
-	{
+	public function searchEntities ($query = "", $start = 1, $limit = 10) {
 		// Verify input
-		if($query == '') return false;
+		if ($query == "") return false;
 		// Query
-		$searchResult = $this->request('search/entities', 
+		$searchResult = $this->request ("search/entities", 
 			array(
-				'q'=>$query,
-				'per_page'=>$limit,
-				'page'=>$start,
+				"q" => $query,
+				"per_page" => $limit,
+				"page" => $start,
 			)
 		);
 		return $searchResult;
@@ -73,12 +70,11 @@ class API implements APIInterface
 	 *
 	 * @return array
 	 */ 
-	public function video($id=0, $includes=array('sources'))
-	{
+	public function video ($id = 0, $includes = array("sources")) {
 		// Verify input
-		if($id == 0) return false;
+		if ($id == 0) return false;
 		// Query
-		$videoResult = $this->request('video/'.$id, array('include'=>implode(',', $includes)));
+		$videoResult = $this->request("video/".$id, array("include" => implode(",", $includes)));
 		return $videoResult;
 	}
 
@@ -90,12 +86,11 @@ class API implements APIInterface
 	 *
 	 * @return array
 	 */
-	public function entity($id=0, $includes=array(''))
-	{
+	public function entity ($id = 0, $includes = array("")) {
 		// Verify input
-		if($id == 0) return false;
+		if ($id == 0) return false;
 		// Query
-		$entityResult = $this->request('entity/'.$id, array('include'=>implode(',', $includes)));
+		$entityResult = $this->request("entity/".$id, array("include" => implode(",", $includes)));
 		return $entityResult;
 	}
 
@@ -107,15 +102,15 @@ class API implements APIInterface
 	 *
 	 * @return array
 	 */
-	private function request($path, $parameters=array())
-	{
+	private function request ($path, $parameters = array()) {
 		$client = new \GuzzleHttp\Client();
 		try {
-			$res = $client->request('GET', $this->APIUrl.$path.'?'.http_build_query($parameters), array('Accept: application/json'));
-		} catch (RequestException $e) {
+			$res = $client->request("GET", $this->APIUrl . $path . "?" . http_build_query($parameters), array("Accept: application/json"));
+		} 
+		catch (RequestException $e) {
 			return false;
 		}
-		if($res->getStatusCode() != '200') return false;
+		if($res->getStatusCode() != "200") return false;
 		return json_decode($res->getBody()->getContents(), true);
 	}
 }
